@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+<title>Splash Screen</title>
+</head>
+
+  <script>
+           var TxtRotate = function(el, toRotate, period) {
+  this.toRotate = toRotate;
+  this.el = el;
+  this.loopNum = 0;
+  this.period = parseInt(period, 10) || 2000;
+  this.txt = '';
+  this.tick();
+  this.isDeleting = false;
+};
+
+TxtRotate.prototype.tick = function() {
+  var i = this.loopNum % this.toRotate.length;
+  var fullTxt = this.toRotate[i];
+
+  if (this.isDeleting) {
+    this.txt = fullTxt.substring(0, this.txt.length - 1);
+  } else {
+    this.txt = fullTxt.substring(0, this.txt.length + 1);
+  }
+
+  this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+  var that = this;
+  var delta = 300 - Math.random() * 100;
+
+  if (this.isDeleting) { delta /= 2; }
+
+  if (!this.isDeleting && this.txt === fullTxt) {
+    delta = this.period;
+    this.isDeleting = true;
+  } else if (this.isDeleting && this.txt === '') {
+    this.isDeleting = false;
+    this.loopNum++;
+    delta = 500;
+  }
+
+  setTimeout(function() {
+    that.tick();
+  }, delta);
+};
+
+window.onload = function() {
+  var elements = document.getElementsByClassName('txt-rotate');
+  for (var i=0; i<elements.length; i++) {
+    var toRotate = elements[i].getAttribute('data-rotate');
+    var period = elements[i].getAttribute('data-period');
+    if (toRotate) {
+      new TxtRotate(elements[i], JSON.parse(toRotate), period);
+    }
+  }
+  // INJECT CSS
+  var css = document.createElement("style");
+  css.type = "text/css";
+  css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+  document.body.appendChild(css);
+};
+        </script>
+<body>
+  <div class="wrapper">
+    <div class="hero-section">
+      <div class="main">
+        
+        
+            <!-- <div class="b">
+                
+                <video id="v" preload="auto" width="100%"
+                height="100%" autoplay="fals" loop="loop"  muted="muted" >
+                <source src="platform.mp4" type="video/mp4">
+                </video>
+                </div> -->
+            <div class="splash">
+                <div class="img"></div>
+            </div>
+            <div class="logo">
+                <img src="cats.png" alt="">
+              </div>
+              <div class="menu-btn">
+                <ion-icon name="menu"></ion-icon>
+          </div>
+            <div class="content">
+           
+           <h1>
+          <span
+             class="txt-rotate"
+             data-period="2000"
+             data-rotate='[ "نحن دوت كات", ", مرحبآ ", "تصميم ", "برمجة"]'></span>
+        </h1>
+        
+            </div>
+            <div class="des">
+                <h2>
+                    وكالة تطوير وتصميم رقمية متخصصون في تصميم وبرمجة مواقع الإنترنت، تطبيقات الأجهزة الذكية والتسويق الإلكتروني.
+                </h2>
+            </div>
+            <hr class="hr-dark hidden-sm hidden-xs">
+            <div class="size" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                <ul>
+                 
+                  <li style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);"><a href=""><img src="fb.png" alt=""></a></li>
+                  <li style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);"><a href=""><img src="tw.png" alt=""></a></li>
+                  <li style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);"><a href=""><img src="linked.png" alt=""></a></li>
+                  <li style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);"><a href=""><img src="insta.png" alt=""></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-btn">
+                <ion-icon name="menu"></ion-icon>
+          </div>
+    </div>
+
+    <div class="menu">
+          <div class="close-menu">
+                <ion-icon name="close"></ion-icon>
+          </div>
+
+          <div class="nav">
+                <ul class="main-menu">
+                      <li class="main-menu-item">
+                            <a href="#"> .كات </a>
+                      </li>
+
+                      <li class="main-menu-item">
+                            <a href="#">أعمالنا <ion-icon name="add"></ion-icon></a>
+
+                        
+                      </li>
+
+                      <li class="main-menu-item">
+                            <a href="#">عنا  <ion-icon name="add"></ion-icon></a>
+
+                        
+                      </li>
+
+                      <li class="main-menu-item">
+                            <a href="#">خدماتنا</a>
+                      </li>
+
+                      <li class="main-menu-item">
+                            <a href="#">اتصل بنا  <ion-icon name="add"></ion-icon></a>
+
+                           
+                      </li>
+                </ul>
+          </div>
+
+          <div class="contact">
+                <p class="call"><ion-icon name="call"></ion-icon>&nbsp;&nbsp;&nbsp;+697 1542 23000</p>
+                <p class="mail"><ion-icon name="mail"></ion-icon>&nbsp;&nbsp;&nbsp;info@dotcat.com</p>
+          </div>
+
+          <div class="media">
+                <ul>
+                      <!-- <li>Facebook</li>
+                      <li>Instagram</li>
+                      <li>Twitter</li> -->
+                </ul>
+          </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('ul.main-menu li').click(function(e) {
+          e.preventDefault();
+
+          if($(this).siblings('li').find('ul.submenu:visible').length) {
+                $('ul.submenu').slideUp('normal');
+          }
+          $(this).find('ul.submenu').slideToggle('normal');
+    });
+
+    var t1 = new TimelineMax({paused: true});
+
+    t1.to(".menu", 0.8, {
+          autoAlpha: 1
+    });
+
+    t1.staggerFrom(".main-menu li a:not(.submenu li a)", 1, {
+          opacity: 0,
+          y: 10,
+          ease: Power3.easeInOut
+    }, 0.1);
+
+    t1.from(".submenu", 0.8, {
+          autoAlpha: 0
+    });
+
+    t1.staggerFrom(".media ul li", 1, {
+          opacity: 0,
+          y: 10,
+          ease: Power3.easeInOut
+    }, 0.1, "-=2");
+
+    t1.from(".call", 1, {
+          delay: -2,
+          opacity: 0,
+          y: 10,
+          ease: Power3.easeInOut
+    });
+
+    t1.from(".mail", 1, {
+          delay: -1.6,
+          opacity: 0,
+          y: 10,
+          ease: Power3.easeInOut
+    });
+
+    t1.reverse();
+
+    $(document).on("click", ".menu-btn", function() {
+          t1.reversed(!t1.reversed());
+    });
+
+    $(document).on("click", ".close-menu", function() {
+          t1.reversed(!t1.reversed());
+    });
+
+</script>
+</body>
+</html>
